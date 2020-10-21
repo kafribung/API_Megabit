@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Resources\Auth\LoginResource;
 
 class LoginController extends Controller
 {
@@ -13,7 +15,8 @@ class LoginController extends Controller
         if (!$token = auth()->attempt($data)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        // return response(compact('token'));
-        return JsonFormatter::success($token, 'Login Berhasil');
+        $data = Auth::user();
+        $data['token'] = $token;
+        return LoginResource::make($data);
     }
 }
