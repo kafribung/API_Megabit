@@ -9,10 +9,12 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Auth')->group(function(){
     Route::post('register',  'RegisterController');
     Route::post('login', 'LoginController');
+    Route::post('logout', 'LogoutController');
 });
 
-Route::namespace('Post')->group(function(){
+Route::namespace('Post')->middleware('auth:api')->group(function(){
     Route::get('post', 'PostController@index');
+    Route::post('post', 'PostController@store');
 });
 
 

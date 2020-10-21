@@ -9,13 +9,14 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $touches = [
-        'user'
-    ];
+    // protected $touches = [
+    //     'user'
+    // ];
     
     protected $fillable = [
         'title',
         'description',
+        'slug'
     ];
 
     // Relation One to Many
