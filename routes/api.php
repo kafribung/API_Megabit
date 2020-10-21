@@ -15,6 +15,7 @@ Route::namespace('Auth')->group(function(){
 Route::namespace('Post')->middleware('auth:api')->group(function(){
     Route::get('post', 'PostController@index');
     Route::post('post', 'PostController@store');
+    Route::get('post/{post:slug}', 'PostController@show');
 });
 
 

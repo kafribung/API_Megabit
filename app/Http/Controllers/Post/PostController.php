@@ -30,21 +30,21 @@ class PostController extends Controller
     }
 
     // Show
-    public function show($id)
+    public function show(Post $post)
     {
-        
-    }
-
-    // Edit 
-    public function edit($id)
-    {
-        //
+        return PostResource::make($post);
     }
 
     // Update
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $data = $request->all();
+        $data['slug'] = \Str::slug($request->title);
+        if (Post::where('slug', $data['slug'])->first() != null ) {
+            $data['slug'] .= rand(1, 5);
+        }
+        $post->update($data);
+        return JsonFormatter::success($data, 'Post Berhasil diupdate');
     }
 
     // Delete
