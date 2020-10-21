@@ -11,4 +11,8 @@ Route::namespace('Auth')->group(function(){
     Route::post('login', 'LoginController');
 });
 
+Route::namespace('Post')->group(function(){
+    Route::get('post', 'PostController@index');
+});
+
 
