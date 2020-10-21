@@ -48,8 +48,9 @@ class PostController extends Controller
     }
 
     // Delete
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return JsonFormatter::success(true, 'Post Berhasil dihapus');
     }
 }

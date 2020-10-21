@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
-
-    // protected $touches = [
-    //     'user'
-    // ];
+    protected $touches = [
+        'user'
+    ];
     
     protected $fillable = [
         'title',
