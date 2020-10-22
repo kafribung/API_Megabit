@@ -59,4 +59,10 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(Post::class);
     }
+
+    // King
+    public function king()
+    {
+        return $this->role == 1;
+    }
 }

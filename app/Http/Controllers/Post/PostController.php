@@ -22,9 +22,7 @@ class PostController extends Controller
     {
         $data = $request->all();
         $data['slug'] = \Str::slug($request->title);
-        if (Post::where('slug', $data['slug'])->first() != null ) {
-            $data['slug'] .= rand(1, 5);
-        }
+        $this->margeSlug($data['slug']);
         $request->user()->posts()->create($data);
         return JsonFormatter::success($data, 'Post Berhasil ditambahkan');
     }
@@ -38,11 +36,10 @@ class PostController extends Controller
     // Update
     public function update(PostRequest $request, Post $post)
     {
+        $this->authorize('author', $post);
         $data = $request->all();
         $data['slug'] = \Str::slug($request->title);
-        if (Post::where('slug', $data['slug'])->first() != null ) {
-            $data['slug'] .= rand(1, 5);
-        }
+        $this->margeSlug($data['slug']);
         $post->update($data);
         return JsonFormatter::success($data, 'Post Berhasil diupdate');
     }
@@ -50,7 +47,16 @@ class PostController extends Controller
     // Delete
     public function destroy(Post $post)
     {
+        $this->authorize('author', $post);
         $post->delete();
         return JsonFormatter::success(true, 'Post Berhasil dihapus');
+    }
+
+    // Generate Slug
+    public function margeSlug($data)
+    {
+        if (Post::where('slug', $data)->first() != null ) {
+            return $data .= rand(1, 5);
+        }
     }
 }
