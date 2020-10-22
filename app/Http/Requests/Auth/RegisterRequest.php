@@ -29,8 +29,8 @@ class RegisterRequest extends FormRequest
             'birth_of_date'     => ['required', 'date'],
             'birth_of_place'    => ['required', 'string', 'max:20'],
             'gender'            => ['required', 'string', 'min:4', 'max:6'],
-            // 'password'          => ['required', 'string'],
-            'role'              => ['required', 'boolean'],
+            'password'          => ['required', 'string'],
+            'role'              => ['boolean'],
         ];
     }
 }
